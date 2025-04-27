@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { Box, TextField, List, ListItem, ListItemButton, ListItemText, Typography, CircularProgress } from '@mui/material';
 import { getDuenos } from '../api/duenos';
 
-function DuenosList({ onSelectDueno }) {
+function DuenosList({ onSelectDueno, selectedDuenoId }) {
   const [duenos, setDuenos] = useState([]);
   const [searchText, setSearchText] = useState('');
   const [loading, setLoading] = useState(true);
@@ -14,6 +14,13 @@ function DuenosList({ onSelectDueno }) {
         const response = await getDuenos();
         setDuenos(response.data);
         setLoading(false);
+
+        if (selectedDuenoId) {
+          const duenoSeleccionado = response.data.find(d => d.id === selectedDuenoId);
+          if (duenoSeleccionado) {
+            onSelectDueno(duenoSeleccionado);
+          }
+        }
       } catch (err) {
         console.error('Error al cargar dueños:', err);
         setError(true);
@@ -22,7 +29,7 @@ function DuenosList({ onSelectDueno }) {
     }
 
     fetchDuenos();
-  }, []);
+  }, [selectedDuenoId, onSelectDueno]);
 
   const filteredDuenos = duenos
     .filter(dueno => dueno.nombreCompleto.toLowerCase().includes(searchText.toLowerCase()))
@@ -30,7 +37,6 @@ function DuenosList({ onSelectDueno }) {
 
   return (
     <Box sx={{ p: 2, height: '100%', overflow: 'auto' }}>
-
       <TextField
         label="Buscar dueño"
         variant="outlined"
