@@ -1,10 +1,11 @@
 import { useState, useEffect } from 'react';
-import { Box, Card, CardContent, Typography, Divider, CircularProgress, Grid } from '@mui/material';
+import { Box, Card, CardContent, Typography, Button, Divider, CircularProgress, Grid } from '@mui/material';
+import EditIcon from '@mui/icons-material/Edit';
 import { useNavigate } from 'react-router-dom';
 import { getDuenoById } from '../api/duenos';
-import { getEspeciesById } from '../api/especies';
-import { getRazasById } from '../api/razas';
-import { getSexosById } from '../api/sexos';
+import { getEspecieById } from '../api/especies';
+import { getRazaById } from '../api/razas';
+import { getSexoById } from '../api/sexos';
 
 function MascotaDetail({ mascota }) {
     const [especie, setEspecie] = useState('');
@@ -19,9 +20,9 @@ function MascotaDetail({ mascota }) {
         async function fetchData() {
             try {
                 const [especieRes, razaRes, sexoRes, duenoRes] = await Promise.all([
-                    getEspeciesById(mascota.idEspecie),
-                    getRazasById(mascota.idRaza),
-                    getSexosById(mascota.idSexo),
+                    getEspecieById(mascota.idEspecie),
+                    getRazaById(mascota.idRaza),
+                    getSexoById(mascota.idSexo),
                     getDuenoById(mascota.idDueno)
                 ]);
                 setEspecie(especieRes.data.nombre);
@@ -56,6 +57,18 @@ function MascotaDetail({ mascota }) {
                 <Typography variant="h4" gutterBottom align="center">
                     {mascota.nombre}
                 </Typography>
+
+                <Box sx={{ display: 'flex', justifyContent: 'center', mb: 2 }}>
+                    <Button
+                        variant="contained"
+                        color="primary"
+                        startIcon={<EditIcon />}
+                        onClick={() => navigate(`/mascotas/edit/${mascota.id}`)}
+                        sx={{ mb: 2 }}
+                    >
+                        Editar
+                    </Button>
+                </Box>
 
                 <Divider sx={{ my: 2 }} />
 

@@ -1,5 +1,7 @@
 import { useState, useEffect } from 'react';
-import { Box, TextField, List, ListItem, ListItemButton, ListItemText, Typography, CircularProgress, ToggleButton, ToggleButtonGroup } from '@mui/material';
+import { Box, TextField, Button, List, ListItem, ListItemButton, ListItemText, Typography, CircularProgress, ToggleButton, ToggleButtonGroup } from '@mui/material';
+import AddIcon from '@mui/icons-material/Add';
+import { useNavigate } from 'react-router-dom';
 import { getMascotas, getMascotasByDueno } from '../api/mascotas';
 
 function MascotasList({ onSelectMascota, selectedMascotaId }) {
@@ -8,6 +10,8 @@ function MascotasList({ onSelectMascota, selectedMascotaId }) {
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(false);
     const [searchMode, setSearchMode] = useState('mascota');
+
+    const navigate = useNavigate();
 
     useEffect(() => {
         async function fetchMascotas() {
@@ -86,6 +90,17 @@ function MascotasList({ onSelectMascota, selectedMascotaId }) {
                 onChange={(e) => setSearchText(e.target.value)}
                 sx={{ mb: 2 }}
             />
+
+            <Button
+                variant="contained"
+                color="primary"
+                fullWidth
+                startIcon={<AddIcon />}
+                onClick={() => navigate('/mascotas/new')}
+                sx={{ mb: 2 }}
+            >
+                Nueva Mascota
+            </Button>
 
             {loading ? (
                 <Box sx={{ display: 'flex', justifyContent: 'center', mt: 4 }}>

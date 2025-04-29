@@ -6,7 +6,7 @@ import MascotaDetail from '../components/MascotaDetail';
 
 const drawerWidth = 300;
 
-function MascotasPage() {
+function Mascotas() {
   const [selectedMascota, setSelectedMascota] = useState(null);
 
   const [searchParams] = useSearchParams();
@@ -56,4 +56,4 @@ function MascotasPage() {
   );
 }
 
-export default MascotasPage;
+export default Mascotas;

@@ -29,7 +29,7 @@ function Login() {
   
       const backendMessage = error.response?.data || 'Error desconocido';
   
-      if (backendMessage.includes('bloqueado')) {
+      if (backendMessage.includes('bloqueada')) {
         Swal.fire({
           icon: 'warning',
           title: '¡Cuenta bloqueada!',

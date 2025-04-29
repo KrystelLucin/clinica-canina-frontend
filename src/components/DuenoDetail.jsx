@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
-import { Card, CardContent, Box, Typography, Divider, List, ListItem, ListItemButton, ListItemText, CircularProgress } from '@mui/material';
+import { Card, CardContent, Box, Typography, Button, Divider, List, ListItem, ListItemButton, ListItemText, CircularProgress } from '@mui/material';
+import EditIcon from '@mui/icons-material/Edit';
 import { useNavigate } from 'react-router-dom';
 import { getMascotasByDuenoId } from '../api/mascotas';
 function DuenoDetail({ dueno }) {
@@ -29,10 +30,22 @@ function DuenoDetail({ dueno }) {
   return (
     <Card sx={{ maxWidth: 700, margin: '0 auto', p: 2 }}>
       <CardContent>
-
+        
         <Typography variant="h4" gutterBottom align="center">
           {dueno.nombreCompleto}
         </Typography>
+
+        <Box sx={{ display: 'flex', justifyContent: 'center', mb: 2 }}>
+          <Button
+            variant="contained"
+            color="primary"
+            startIcon={<EditIcon />}
+            onClick={() => navigate(`/duenos/edit/${dueno.id}`)}
+            sx={{ mb: 2 }}
+          >
+            Editar
+          </Button>
+        </Box>
 
         <Divider sx={{ my: 2 }} />
 

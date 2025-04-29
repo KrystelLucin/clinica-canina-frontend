@@ -6,7 +6,7 @@ import DuenoDetail from '../components/DuenoDetail';
 
 const drawerWidth = 300;
 
-function DuenosPage() {
+function Duenos() {
   const [selectedDueno, setSelectedDueno] = useState(null);
 
   const [searchParams] = useSearchParams();
@@ -53,4 +53,4 @@ function DuenosPage() {
   );
 }
 
-export default DuenosPage;
+export default Duenos;

@@ -1,5 +1,7 @@
 import { useState, useEffect } from 'react';
-import { Box, TextField, List, ListItem, ListItemButton, ListItemText, Typography, CircularProgress } from '@mui/material';
+import { Box, TextField, Button, List, ListItem, ListItemButton, ListItemText, Typography, CircularProgress } from '@mui/material';
+import AddIcon from '@mui/icons-material/Add';
+import { useNavigate } from 'react-router-dom';
 import { getDuenos } from '../api/duenos';
 
 function DuenosList({ onSelectDueno, selectedDuenoId }) {
@@ -7,6 +9,8 @@ function DuenosList({ onSelectDueno, selectedDuenoId }) {
   const [searchText, setSearchText] = useState('');
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(false);
+
+  const navigate = useNavigate();
 
   useEffect(() => {
     async function fetchDuenos() {
@@ -46,6 +50,18 @@ function DuenosList({ onSelectDueno, selectedDuenoId }) {
         onChange={(e) => setSearchText(e.target.value)}
         sx={{ mb: 2 }}
       />
+
+      <Button
+        variant="contained"
+        color="primary"
+        fullWidth
+        startIcon={<AddIcon />}
+        onClick={() => navigate('/duenos/new')}
+        sx={{ mb: 2 }}
+      >
+        Nuevo Dueño
+      </Button>
+
 
       {loading ? (
         <Box sx={{ display: 'flex', justifyContent: 'center', mt: 4 }}>
